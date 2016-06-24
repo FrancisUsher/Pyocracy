@@ -1,0 +1,7 @@
+__pycache__/
+antiliberal.xlsx
+**/*.pyc
+clones/**
+extremism/**
+socialengineering/**
+vanilla/**
