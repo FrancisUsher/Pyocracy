@@ -23,7 +23,7 @@ class Formula:
     def parse_formula(self, text):
         # parse out the stuff from text
         # [value1][operator1]([value2][operator2][values3])[operator3][value4]
-        binop = r'([+\-*/\^])'
+        binop = r'([+\-*/\^])' # binary operator
         flnum = r'([+\-]?\d+(?:\.\d*)?)' # signed decimal number
         fort =  r'([+\-]?\d+(?:\.\d*)?|[\w\s]+?)' # decimal or target name
         pat = ''.join((flnum, binop, r'\(', fort, binop, fort, r'\)',

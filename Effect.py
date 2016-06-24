@@ -7,9 +7,10 @@ class Effect:
 
     def parse_effect(self, text):
         # parse out the stuff from text
+        # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
         # [target],[value1][operator1]
         # ([value2][operator2][values3])[operator3][value4],[inertia]
-        binop = r'([+\-*/\^])'
+        binop = r'([+\-*/\^])'# binary operator
         flnum = r'([+\-]?\d+(?:\.\d*)?)' # signed decimal number
         tvar = r'(\w?)'
         fort =  r'([+\-]?\d+(?:\.\d*)?|[\w\s]+?)' # decimal or target name
@@ -42,6 +43,7 @@ class Effect:
             # Erroneous Effect, handled gracefully
             raise ValueError()
         else:
+        # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
             self.__dict__.update(dict(
                 target = g[0], v1 = g[1],
                 op1 = g[2], v2 = g[3], op2 = g[4],
@@ -50,6 +52,7 @@ class Effect:
                             self.op1, self.op2, self.op3)
 
     def reprint(self):
+        """Form a string representing the Effect in its original syntax."""
         return ''.join((self.target, " ", self.v1, self.op1,
                         "(", self.v2, self.op2, self.v3, ")",
                         (self.op3 or ""), (self.v4 or ""),

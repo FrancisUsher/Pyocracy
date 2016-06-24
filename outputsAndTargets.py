@@ -11,48 +11,53 @@ target_set = set(t for ts in all_targets for t in ts)
 Farmers
     Farmers_income
     Farmers_freq
+StateEmployees
+    StateEmployees_income
+    StateEmployees_freq
+TradeUnionist
+    TradeUnionist_freq
+Retired
+    Retired_income
+    Retired_freq
+SelfEmployed
+    SelfEmployed_income
+    SelfEmployed_freq
+Commuter
+    Commuter_income
+    Commuter_freq
+
 Environmentalist
     Environmentalist_income
     Environmentalist_freq
 EthnicMinorities
-Young
-    Young_income
+
 Wealthy
     _HighIncome
     Capitalist_income
+MiddleIncome
+    _MiddleIncome
 Poor
     _LowIncome
     PovertyRate
-MiddleIncome
-    _MiddleIncome
+    
 Conservatives
+Liberal
+    _global_liberalism
+    
 Patriot
     Patriot_freq
-StateEmployees
-    StateEmployees_income
-    StateEmployees_freq
 Socialist
     _global_socialism
-TradeUnionist
-    TradeUnionist_freq
 Motorist
     Motorist_income
     Motorist_freq
 Capitalist
-Retired
-    Retired_income
-    Retired_freq
+Young
+    Young_income
 Parents
     Parents_income
     Parents_freq
-SelfEmployed
-    SelfEmployed_income
-    SelfEmployed_freq
-Liberal
-    _global_liberalism
-Commuter
-    Commuter_income
-    Commuter_freq
+
 Religious
     Religious_income
     Religious_freq
