@@ -1,0 +1,44 @@
+{
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "Liberal",
+      "x": 0,
+      "y": 0,
+      "size": 100,
+      "color": "rgb(0,0,255)"
+    },
+    {
+      "id": "n1",
+      "label": "_global_liberalism",
+      "x": 3,
+      "y": 1,
+      "size": 30,
+      "color": "rgb(0,0,255)"
+    },
+    {
+      "id": "n2",
+      "label": "And a last one",
+      "x": 1,
+      "y": 3,
+      "size": 1
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": "n0",
+      "target": "n1"
+    },
+    {
+      "id": "e1",
+      "source": "n1",
+      "target": "n2"
+    },
+    {
+      "id": "e2",
+      "source": "n2",
+      "target": "n0"
+    }
+  ]
+}

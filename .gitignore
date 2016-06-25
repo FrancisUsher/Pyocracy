@@ -5,4 +5,6 @@ clones/**
 extremism/**
 socialengineering/**
 vanilla/**
+image/**
 !**/filesgohere
+~$*.xls*
