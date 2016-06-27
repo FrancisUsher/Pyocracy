@@ -100,6 +100,7 @@ sigma.canvas.nodes.image = (function() {
         true
       );
       context.closePath();
+      context.fill();
       context.clip();
 
       // Draw the image
@@ -169,17 +170,17 @@ sigma.canvas.nodes.image = (function() {
 var i,
     s,
     img,
-    N = 100,
+    N = 20,
     E = 500,
     g = {
       nodes: [],
       edges: []
     },
     urls = [
-      'img/img1.png',
-      'img/img2.png',
-      'img/img3.png',
-      'img/img4.png'
+      'image/situations/sit_icons_alcoholism.png',
+      'image/situations/sit_icons_antisocialbehaviour.png',
+      'image/situations/sit_icons_armedrobbery.png',
+      'image/situations/sit_icons_asthmaepidemic.png'
     ],
     loaded = 0,
     colors = [
@@ -191,12 +192,11 @@ var i,
 
 // Generate a random graph, with ~30% nodes having the type "image":
 for (i = 0; i < N; i++) {
-  img = Math.random() >= 0.7;
   g.nodes.push({
     id: 'n' + i,
     label: 'Node ' + i,
-    type: img ? 'image' : 'def',
-    url: img ? urls[Math.floor(Math.random() * urls.length)] : null,
+    type: 'image',
+    url: urls[i % urls.length],
     x: Math.random(),
     y: Math.random(),
     size: Math.random(),
