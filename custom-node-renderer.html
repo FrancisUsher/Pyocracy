@@ -268,7 +268,7 @@ var i,
 for (i = 0; i < urls.length; i++) {
   g.nodes.push({
     id: 'n' + i,
-    label: 'Node ' + i,
+    label: urls[i % urls.length].split('_')[urls[i % urls.length].split('_').length - 1].split('.')[0],
     type: 'image',
     url: urls[i % urls.length],
     x: Math.random(),
