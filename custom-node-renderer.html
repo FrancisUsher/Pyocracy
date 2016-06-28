@@ -48,11 +48,13 @@
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 <!-- END SIGMA IMPORTS -->
 <div id="container">
-  <div class='bg-image-wrapper'>
+  <canvas id="testCanvas" width="800" height="600">
+  </canvas>
+  <div class='bg-image-wrapper economy-tile'>
     <div class='bg-image group-economy'>
     </div>
   </div>
-  <div class='bg-image-wrapper'>
+  <div class='bg-image-wrapper foreignpolicy-tile'>
     <div class='bg-image group-foreignpolicy'>
     </div>
   </div>
@@ -88,6 +90,25 @@
   <div id="graph-container"></div>
 </div>
 <script>
+var imageObj = new Image();
+var c = document.getElementById('testCanvas');
+var cx = c.getContext('2d');
+imageObj.onload = function()
+{
+    cx.save();
+    cx.beginPath();
+    cx.moveTo(0,0);
+    cx.lineTo(240,0);
+    cx.lineTo(500,550);
+    cx.lineTo(0,400);
+    var ptrn = cx.createPattern(imageObj, 'repeat');
+    cx.fillStyle = ptrn;
+    cx.fill();
+    //cx.clip();
+    //cx.drawImage(imageObj, 10, 50);
+};
+
+
 /**
  * This is a basic example on how to develop a custom node renderer. In
  * this example, the renderer will display an image clipped in a disc,
@@ -200,7 +221,7 @@ var i,
     s,
     img,
     N = 20,
-    E = 300,
+    E = 60,
     g = {
       nodes: [],
       edges: []

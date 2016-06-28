@@ -6,16 +6,28 @@
     height: 700px;
     position: relative;
     overflow:hidden;
+    &.economy-tile{
+        position: absolute;
+        right:0;
+        top:25%;
+    }
+    &.foreignpolicy-tile{
+        position: absolute;
+        left:100px;
+        top:0;
+    }
     .bg-image {
         width: 250px;
         height: 100px;
         background-color: red;
-        position: relative;
+        position: absolute;
+        right:0;
         &.group-economy{
             width: 500px;
-            height: 500px;
+            height: 600px;
             background-repeat: repeat;
             background-image: url("/image/ui/policy groups/tile_economy.png");
+            opacity:0.2;
             &:before{
                 content:"";
                 position: absolute;
@@ -44,34 +56,35 @@
             }
         }
         &.group-foreignpolicy{
-            width: 500px;
-            height: 500px;
+            width: 540px;
+            height: 560px;
             background-repeat: repeat;
             background-image: url("/image/ui/policy groups/tile_foreignpolicy.png");
+            opacity:0.2;
             &:before{
                 content:"";
                 position: absolute;
-                width: 400px;
-                height:125px;
+                width: 750px;
+                height: 400px;
                 background-color: white;
-                top:90px;
-                left:-20px;
-               transform: rotate(65deg);
-               -moz-transform: rotate(65deg);
-               -webkit-transform: rotate(65deg);
+                top: 110px;
+                left: -450px;
+               transform: rotate(245deg);
+               -moz-transform: rotate(245deg);
+               -webkit-transform: rotate(245deg);
 
             }
             &:after{
                 content:"";
                 position: absolute;
-                width: 400px;
-                height:125px;
+                width: 750px;
+                height: 400px;
                 background-color: white;
-                top:90px;
-                left:-20px;
-               transform: rotate(120deg);
-               -moz-transform: rotate(120deg);
-               -webkit-transform: rotate(120deg);
+                top: 110px;
+                left: 230px;
+               transform: rotate(-65deg);
+               -moz-transform: rotate(-65deg);
+               -webkit-transform: rotate(-65deg);
 
             }
         }
