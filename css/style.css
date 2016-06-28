@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+.bg-image-wrapper {
+  width: 700px;
+  height: 700px;
+  position: relative;
+  overflow: hidden;
+}
+.bg-image-wrapper .bg-image {
+  width: 250px;
+  height: 100px;
+  background-color: red;
+  position: relative;
+}
+.bg-image-wrapper .bg-image.group-economy {
+  width: 500px;
+  height: 500px;
+  background-repeat: repeat;
+  background-image: url("/image/ui/policy groups/tile_economy.png");
+}
+.bg-image-wrapper .bg-image.group-economy:before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background-color: white;
+  top: -200px;
+  left: -120px;
+  transform: rotate(-25deg);
+  -moz-transform: rotate(-25deg);
+  -webkit-transform: rotate(-25deg);
+}
+.bg-image-wrapper .bg-image.group-economy:after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background-color: white;
+  top: 420px;
+  left: -150px;
+  transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  -webkit-transform: rotate(30deg);
+}
+.bg-image-wrapper .bg-image.group-foreignpolicy {
+  width: 500px;
+  height: 500px;
+  background-repeat: repeat;
+  background-image: url("/image/ui/policy groups/tile_foreignpolicy.png");
+}
+.bg-image-wrapper .bg-image.group-foreignpolicy:before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 125px;
+  background-color: white;
+  top: 90px;
+  left: -20px;
+  transform: rotate(65deg);
+  -moz-transform: rotate(65deg);
+  -webkit-transform: rotate(65deg);
+}
+.bg-image-wrapper .bg-image.group-foreignpolicy:after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 125px;
+  background-color: white;
+  top: 90px;
+  left: -20px;
+  transform: rotate(120deg);
+  -moz-transform: rotate(120deg);
+  -webkit-transform: rotate(120deg);
+}
