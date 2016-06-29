@@ -164,13 +164,9 @@ $.getJSON( "glyphicon_urls.json", function( data ) {
     function generateLabel(url){
         return url.split('_')[url.split('_').length - 1].split('.')[0];
     }
-    for (i = 0; i < urls.length; i++) {
-        addImageNode('n' + i, 
-                     generateLabel(urls[i]),
-                     urls[i],
-                     i % 10,
-                     i / 10);
-    }
+    urls.forEach(function(url, i) {
+        addImageNode('n' + i, generateLabel(url), url, i % 10, i / 10);
+    });
 
     for (i = 0; i < E; i++)
       g.edges.push({
@@ -180,7 +176,7 @@ $.getJSON( "glyphicon_urls.json", function( data ) {
         size: Math.random()
       });
 
-    // Then, wait for all images to be loaded before instanciating sigma:
+    // Then, wait for all images to be loaded before instantiating sigma:
     urls.forEach(function(url) {
       sigma.canvas.nodes.image.cache(
         url,
