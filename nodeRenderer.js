@@ -144,21 +144,32 @@ var i,
       '#c6583e',
       '#b956af'
     ];
-    
+  
+
+  
 $.getJSON( "glyphicon_urls.json", function( data ) {
     var urls = data["urls"];
+    function addImageNode(id, label, imageURL, xPos, yPos){
+        g.nodes.push({
+            id: id,
+            label: label,
+            type: 'image',
+            url: imageURL,
+            x: xPos,
+            y: yPos,
+            size: 2,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+    }
+    function generateLabel(url){
+        return url.split('_')[url.split('_').length - 1].split('.')[0];
+    }
     for (i = 0; i < urls.length; i++) {
-        
-      g.nodes.push({
-        id: 'n' + i,
-        label: urls[i % urls.length].split('_')[urls[i % urls.length].split('_').length - 1].split('.')[0],
-        type: 'image',
-        url: urls[i % urls.length],
-        x: i % 10,
-        y: i / 10,
-        size: 2,
-        color: colors[Math.floor(Math.random() * colors.length)]
-      });
+        addImageNode('n' + i, 
+                     generateLabel(urls[i]),
+                     urls[i],
+                     i % 10,
+                     i / 10);
     }
 
     for (i = 0; i < E; i++)
