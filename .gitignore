@@ -8,3 +8,4 @@ vanilla/**
 image/**
 !**/filesgohere
 ~$*.xls*
+web.config
