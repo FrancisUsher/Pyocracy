@@ -24,23 +24,30 @@ class Policy:
         self.parse_policy(row, heads)
 
     def parse_policy(self, row, heads):
+        """Populate the policy object based on a row of the game Policies CSV.
+        Keyword arguments:
+            row: Sequence of values from a game Policies CSV row.
+            heads: Names for each value in a prefix of the row.
+        """
         self.__dict__.update({h:v for (h,v) in zip(heads, row)})
-        self.effects = []
-        for val in splitfx(row):
-            if val.strip():
+        self.effects = parse_effects((val for val in split_effects(row)))
+        
+    def parse_effects(effects):
+        for val in effects:
+            if val.strip(): # Don't use any empty effects
                 try:
-                    self.effects.append(Effect(val))
+                    yield Effect(val)
                 except ValueError:
-                    # Erroneous Effect, handled gracefully
-                    # See comment above Effect class for known errors
+                    # Malformed Effect string, ignore it and parse the rest.
+                    # See comment above Effect class for known errors cases.
                     pass
 
     # returns true if one of the effects, 
-    def has_effect(self, search_fx):
+    def has_effect(self, search_effects):
         return any(any(term in e.target for e in self.effects)
-                   for term in search_fx)
+                   for term in search_effects)
 
-def splitfx(vals):
+def split_effects(vals):
     for (i, val) in enumerate(vals[:-1]):
         if '#effects' in val.lower():
             return vals[i+1:]

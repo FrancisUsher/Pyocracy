@@ -36,24 +36,24 @@
     }
 }());
 
-var imageObj = new Image();
-var c = document.getElementById('testCanvas');
-var cx = c.getContext('2d');
-imageObj.onload = function()
-{
-    cx.save();
-    cx.beginPath();
-    cx.moveTo(0,0);
-    cx.lineTo(240,0);
-    cx.lineTo(500,550);
-    cx.lineTo(0,400);
-    //var ptrn = cx.createPattern(imageObj, 'repeat');
-    //cx.fillStyle = ptrn;
+//var imageObj = new Image();
+//var c = document.getElementById('testCanvas');
+//var cx = c.getContext('2d');
+//imageObj.onload = function()
+// {
+    // cx.save();
+    // cx.beginPath();
+    // cx.moveTo(0,0);
+    // cx.lineTo(240,0);
+    // cx.lineTo(500,550);
+    // cx.lineTo(0,400);
+    // //var ptrn = cx.createPattern(imageObj, 'repeat');
+    // //cx.fillStyle = ptrn;
     
-    cx.fill();
-    //cx.clip();
-    //cx.drawImage(imageObj, 10, 50);
-};
+    // cx.fill();
+    // //cx.clip();
+    // //cx.drawImage(imageObj, 10, 50);
+// };
 
 function drawHalfScreenTriangle(angle1, angle2){
     return;
@@ -61,7 +61,7 @@ function drawHalfScreenTriangle(angle1, angle2){
 }
 
 function drawHalfScreenLine(canvas, angle){
-    var cx = c.getContext('2d');
+    var cx = canvas.getContext('2d');
     var cOrigin = normalizeToCanvasOrigin(canvas, {xPos:0, yPos:0});
     var cDest = getPointOnAngle(canvas, angle);
     cx.moveTo(cOrigin.xPos, cOrigin.yPos);
@@ -71,7 +71,7 @@ function drawHalfScreenLine(canvas, angle){
 }
 
 function drawHalfScreenLineTo(canvas, point){
-    var cx = c.getContext('2d');
+    var cx = canvas.getContext('2d');
     var cOrigin = normalizeToCanvasOrigin(canvas, {xPos:0, yPos:0});
     cx.moveTo(cOrigin.xPos, cOrigin.yPos);
     cx.beginPath();
@@ -83,30 +83,33 @@ function getPointOnAngle(canvas, angle){
     var halfPI = Math.PI / 2;
     angle = angle % (Math.PI * 2),
     tanCalc = Math.tan(angle);
+    console.log(tanCalc);
     
     var xCenter = canvas.width / 2,
-        yCenter = canvas.height / 2;
+        yCenter = canvas.height / 2,
+        bigRadius = 300;//2 * Math.max(canvas.width, canvas.height);
     
     var xDirection;
     if(angle == halfPI){
         // Draw vertical line up
-        return normalizeToCanvasOrigin(canvas, {xPos: 0, yPos: 1 * 300});
+        return normalizeToCanvasOrigin(canvas, {xPos: 0, yPos: -bigRadius});
     } else if(angle == 3 * halfPI){
         // Draw vertical line down
-        return normalizeToCanvasOrigin(canvas, {xPos: 0, yPos: -1* 300});
+        return normalizeToCanvasOrigin(canvas, {xPos: 0, yPos: bigRadius});
     } else if(angle  < halfPI || angle > 3 * halfPI){
         // Draw line right
-        return normalizeToCanvasOrigin(canvas, {xPos: 1* 300, yPos: tanCalc* 300});
+        return normalizeToCanvasOrigin(canvas, {xPos: bigRadius, yPos: tanCalc * bigRadius});
     } else {
         // Draw line left
-        return normalizeToCanvasOrigin(canvas, {xPos: -1* 300, yPos: -tanCalc* 300});
+        return normalizeToCanvasOrigin(canvas, {xPos: -bigRadius, yPos: -tanCalc * bigRadius});
     }
 }
 
 function normalizeToCanvasOrigin(canvas, xyPos){
     var xCenter = canvas.width / 2,
         yCenter = canvas.height / 2;
-    return {xPos: xCenter - xyPos.xPos, yPos: yCenter - xyPos.yPos}
+        console.log({xPos: xCenter + xyPos.xPos, yPos: yCenter - xyPos.yPos});
+    return {xPos: xCenter + xyPos.xPos, yPos: yCenter - xyPos.yPos};
 }
 
 /**
