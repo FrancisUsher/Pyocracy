@@ -6,6 +6,34 @@ class Effect:
         self.parse_effect(text)
 
     def parse_effect(self, text):
+        """Populate Effect object from game CSV file entry format string.
+
+        Args:
+            text (str): String representation of effect from game CSV file.
+        
+        Raises:
+            ValueError: If the text does not conform to the expected pattern.
+
+        Note:
+            Some of the original game Effect strings were malformed.
+            Known effect error cases:
+                Both values inside parens:
+                    _security_,(0.025+0.035*x)
+                    _security_,(0.025+0.038*x)
+                    _security_,(0.05+0.05*x)
+                    _security_,(0.075+0.1*x)
+                Extra decimal point:
+                    Equality,0.0.5+(0.15*x)
+                Missing comma:
+                    Religious-0.06-(0.06*x)
+                Missing left parenthesis:
+                    Liberal,0+0.10*x)
+                    Wages,-0.12+0.24*x)
+                    Socialist,0.02+0.08*x)
+                Parentheses around third term:
+                    Religious,-0.12-0.62*(x^2.2)
+        
+        """
         # parse out the stuff from text
         # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
         # [target],[value1][operator1]
@@ -22,25 +50,6 @@ class Effect:
         try:
             g = m.groups()
         except AttributeError:
-            # print(text)
-            """Known effect error cases:
-            # both values inside parens
-            _security_,(0.025+0.035*x)
-            _security_,(0.025+0.038*x)
-            _security_,(0.05+0.05*x)
-            _security_,(0.075+0.1*x)
-            # extra decimal point
-            Equality,0.0.5+(0.15*x)
-            # missing comma
-            Religious-0.06-(0.06*x)
-            # missing left paren
-            Liberal,0+0.10*x)
-            Wages,-0.12+0.24*x)
-            Socialist,0.02+0.08*x)
-            # parens around third term
-            Religious,-0.12-0.62*(x^2.2)
-            """
-            # Erroneous Effect, handled gracefully
             raise ValueError()
         else:
         # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
@@ -52,7 +61,7 @@ class Effect:
                             self.op1, self.op2, self.op3)
 
     def reprint(self):
-        """Form a string representing the Effect in its original syntax."""
+        """Represent the Effect as a string in game CSV format."""
         return ''.join((self.target, " ", self.v1, self.op1,
                         "(", self.v2, self.op2, self.v3, ")",
                         (self.op3 or ""), (self.v4 or ""),
@@ -61,7 +70,3 @@ class Effect:
 
     def __str__(self):
         return (self.target + "," + str(self.fmla))
-
-    #def max_order(self):
-        # find highest order of magnitude in expression
-        # where's the var? according to pat in parse_effect, v2 or v3
