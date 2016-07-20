@@ -41,9 +41,9 @@ class Effect:
         and op1-op3 are binary arithmetic operators.
         op3 and v4 are optional and usually used for exponentiation
         """
-        binop = r'([+\-*/\^])'# binary operator
-        flnum = r'([+\-]?\d+(?:\.\d*)?)' # signed decimal number
-        tvar = r'([\w\s]+)'
+        binop = r'([+\-*/\^])'# Binary operator
+        flnum = r'([+\-]?\d+(?:\.\d*)?)' # Signed decimal number
+        tvar = r'([\w\s]+)' # Target variable name
         prefix = tvar + r',\s*'
         prefix_op = flnum + binop
         inner_op = r'\(' + fort + binop + fort + r'\)'
