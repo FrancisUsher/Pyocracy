@@ -21,6 +21,12 @@ class Formula:
             self.fun = lambda x: fun1(fun2(x))
 
     def parse_formula(self, text):
+        """Extract text representation of formula into member variables.
+
+        This duplicates functionality in the Effect class. This version
+        seems not to be currently used, however the functionality probably
+        belongs in this class in the long-term.
+        """
         # parse out the stuff from text
         # [value1][operator1]([value2][operator2][values3])[operator3][value4]
         binop = r'([+\-*/\^])' # binary operator
@@ -53,12 +59,10 @@ class Formula:
             # also in at least one case a source target name
             # is given as a coefficient instead of a variable name
             """
-            # Erroneous Effect, handle gracefully somewhere else please
-            raise ValueError(' '.join(["Unexpected Effect format", text]))
-        else:
-            self.__dict__.update(dict(
-                v1 = g[1], op1 = g[2], v2 = g[3], op2 = g[4],
-                v3 = g[5], op3 = g[6], v4 = g[7]))
+            # Malformed Formula, handle gracefully somewhere else please
+            raise ValueError(' '.join(["Unexpected Formula format", text]))
+        self.__dict__.update(zip(['v1', 'op1', 'v2', 'op2', 'v3', 'op3', 'v4'],
+                                 g[1:8]))
         self.fmla = Formula(self.v1, self.v2, self.v3, self.v4,
                             self.op1, self.op2, self.op3)
 

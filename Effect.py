@@ -32,7 +32,8 @@ class Effect:
                     Socialist,0.02+0.08*x)
                 Parentheses around third term:
                     Religious,-0.12-0.62*(x^2.2)
-        
+            Also in at least one case a source target name is given
+                where we'd expect to find a variable name.
         """
         """An effect takes the form:
             [target],[v1][op1]([v2][op2][v3])[op3][v4],[inertia]
@@ -55,11 +56,11 @@ class Effect:
         try:
             g = m.groups()
         except AttributeError:
-            raise ValueError()
+            raise ValueError(' '.join(["Unexpected Effect format", text]))
         else:
         # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
             self.__dict__.update(zip(['target', 'v1', 'op1', 'v2', 'op2',
-                                      'v3', 'op3', 'v4', 'intertia'], g[:9]))
+                                      'v3', 'op3', 'v4', 'intertia'], g[1:10]))
         self.fmla = Formula(self.v1, self.v2, self.v3, self.v4,
                             self.op1, self.op2, self.op3)
 
