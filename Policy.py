@@ -1,9 +1,12 @@
 from D3Parser import parse_effects_from_row
 
-
-
 class Policy:
-    """
+    """Takes inputs and produces outputs for certain game variables each turn.
+
+    A policy represents a hidden node and a subset of input/outputs for the
+        node in the game's neural network. In the game it is managed on a
+        sliding scale, which can be accessed by clicking the relevant blue
+        bubble in the main interface screen.
 
     Attributes:
         name (str): Internal unique identifier.
@@ -51,7 +54,14 @@ class Policy:
             row: Sequence of values from a game Policies CSV row.
             heads: Names for each value in a prefix of the row.
         """
+        # The first column contains just a hash symbol '#'
+        # From the documentation: "Any line without a starting '#' is
+        #    effectively ignored, so can be used as a comment, to help you
+        #    organize things."
         self.__dict__.update({h:v for (h,v) in zip(heads, row)})
+        # The column after the policy attributes contains the flag "#Effects".
+        # A variable number of columns to the right of this flag contain
+        #    effects of this policy on other items in the engine.
         self.effects = parse_effects_from_row(row)
 
     def has_effect(self, search_effects):
