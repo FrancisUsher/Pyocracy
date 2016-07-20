@@ -32,31 +32,35 @@ class Effect:
                     Socialist,0.02+0.08*x)
                 Parentheses around third term:
                     Religious,-0.12-0.62*(x^2.2)
-        
+            Also in at least one case a source target name is given
+                where we'd expect to find a variable name.
         """
-        # parse out the stuff from text
-        # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
-        # [target],[value1][operator1]
-        # ([value2][operator2][values3])[operator3][value4],[inertia]
-        binop = r'([+\-*/\^])'# binary operator
-        flnum = r'([+\-]?\d+(?:\.\d*)?)' # signed decimal number
-        tvar = r'(\w?)'
+        """An effect takes the form:
+            [target],[v1][op1]([v2][op2][v3])[op3][v4],[inertia]
+        where v1-v4 are float values or variables
+        and op1-op3 are binary arithmetic operators.
+        op3 and v4 are optional and usually used for exponentiation
+        """
+        binop = r'([+\-*/\^])'# Binary operator
+        flnum = r'([+\-]?\d+(?:\.\d*)?)' # Signed decimal number
+        tvar = r'([\w\s]+)' # Target variable name
+        prefix = tvar + r',\s*'
+        prefix_op = flnum + binop
+        inner_op = r'\(' + fort + binop + fort + r'\)'
+        suffix_op = r'(?:' + binop + flnum + r')?'
+        suffix = r',?(\d+)?'
         fort =  r'([+\-]?\d+(?:\.\d*)?|[\w\s]+?)' # decimal or target name
-        pat = ''.join((r'([\w\s]+),\s*', flnum, binop,
-                       r'\(', fort, binop, fort, r'\)',
-                       r'(?:', binop, flnum, r')?,?(\d+)?'))
+        pat = ''.join((prefix, prefix_op, inner_op, suffix_op, suffix))
         p = re.compile(pat)
         m = p.match(text)
         try:
             g = m.groups()
         except AttributeError:
-            raise ValueError()
+            raise ValueError(' '.join(["Unexpected Effect format", text]))
         else:
         # [target],[v1][op1]([v2][op2][v3])[op4][v4],[inertia]
-            self.__dict__.update(dict(
-                target = g[0], v1 = g[1],
-                op1 = g[2], v2 = g[3], op2 = g[4],
-                v3 = g[5], op3 = g[6], v4 = g[7], intertia = g[8]))
+            self.__dict__.update(zip(['target', 'v1', 'op1', 'v2', 'op2',
+                                      'v3', 'op3', 'v4', 'intertia'], g[1:10]))
         self.fmla = Formula(self.v1, self.v2, self.v3, self.v4,
                             self.op1, self.op2, self.op3)
 
