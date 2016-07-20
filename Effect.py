@@ -6,7 +6,7 @@ class Effect:
         self.parse_effect(text)
 
     def parse_effect(self, text):
-        """Populate Effect object from game CSV file entry format string.
+        """Populate Effect object from game CSV file entry-format string.
 
         Args:
             text (str): String representation of effect from game CSV file.
@@ -41,15 +41,16 @@ class Effect:
         and op1-op3 are binary arithmetic operators.
         op3 and v4 are optional and usually used for exponentiation
         """
+        f_or_t =  r'([+\-]?\d+(?:\.\d*)?|[\w\s]+?)' # decimal or target name
         binop = r'([+\-*/\^])'# Binary operator
         flnum = r'([+\-]?\d+(?:\.\d*)?)' # Signed decimal number
         tvar = r'([\w\s]+)' # Target variable name
         prefix = tvar + r',\s*'
         prefix_op = flnum + binop
-        inner_op = r'\(' + fort + binop + fort + r'\)'
+        inner_op = r'\(' + f_or_t + binop + f_or_t + r'\)'
         suffix_op = r'(?:' + binop + flnum + r')?'
         suffix = r',?(\d+)?'
-        fort =  r'([+\-]?\d+(?:\.\d*)?|[\w\s]+?)' # decimal or target name
+        
         pat = ''.join((prefix, prefix_op, inner_op, suffix_op, suffix))
         p = re.compile(pat)
         m = p.match(text)
