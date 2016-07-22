@@ -4,15 +4,15 @@ from Policy import Policy
 
 # Retrieve all effects of every 
 def all_effects(rows):
-    efx = []
+    effects = []
     for row in rows:
         effect = False
         for val in row:
             if effect:
-                efx.append(val.split(',')[0])
+                effects.append(val.split(',')[0])
             elif val == '#Effects':
                 effect = True
-    return sorted(set(efx))
+    return sorted(set(effects))
 
 class Analysis:
     def __init__(self, path):

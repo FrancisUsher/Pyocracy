@@ -26,8 +26,16 @@ def parse_effects(effects):
                 # See comment above Effect class for known problem cases.
                 pass
 
-def split_effects(vals):
+def not_effect_bound(x):
     """The effects are all the values that come after the entry "#Effects"."""
-    effects = dropwhile(lambda x:'#effects' not in x.lower(), vals[:-1])
-    next(effects)
+    return '#effects' not in x.lower()
+
+def split_effects(vals):
+    """Throw out all values up to the effects, exclusive."""
+    effects = dropwhile(not_effect_bound, vals[:-1])
+    try:
+        # Also throw out the boundary itself
+        next(effects)
+    except StopIteration:
+        raise ValueError("No #Effect boundary parsed from CSV row.")
     return effects
